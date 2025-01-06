@@ -75,6 +75,8 @@
                 "log"];
             appConsts.CHUNK_SIZE = 1024 * 1024;
             var filetypes = {}, audio = ['m4a', 'amr', 'wav', 'aac', 'mp3'], video = ['mp4', 'mov', '3gp', 'flv'], image = ['png', 'jpg', 'jpeg','gif'];
+            /*let speechSyn = new SpeechSynthesisUtterance();*/
+            let voices = [];
             filetypes.audio = audio;
             filetypes.video = video;
             filetypes.image = image;
@@ -4848,6 +4850,19 @@
                 }
             }
 
+
+            function loadVoices() {
+                voices = window.speechSynthesis.getVoices();
+                console.log("Available voice:", voices);
+            }
+
+            // Ensure voices are loaded
+
+            if (typeof speechSynthesis !== 'undefine' && speechSynthesis.onvoiceschanged !== 'undefined') {
+                speechSynthesis.onvoiceschanged = loadVoices;
+            }
+
+
             function playMessageSequence() {
                 if (!speechSyn) {
                     speechSyn = new SpeechSynthesisUtterance();
@@ -4856,6 +4871,8 @@
                 if (audioMsgs.length > 0 && !audioPlaying) {
                     audioPlaying = true;
                     speechSyn.text = audioMsgs.shift();
+                    speechSyn.voice = voices.find(voice => voice.name === "Microsoft Aria Online (Natural) - English (United States)");
+                    console.log("voices selected:", speechSyn.voice);
                     window.speechSynthesis.speak(speechSyn);
                     speechSyn.onend = function () {
                         audioPlaying = false;
