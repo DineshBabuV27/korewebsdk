@@ -20,7 +20,7 @@
         }
     }
 
-    botOptions.JWTUrl = "https://tool.genpactpoc.com/KoreWebUI/"; //hosted url(endpoint)
+    botOptions.JWTUrl = "https://back-end-1-zvp2.onrender.com/get-token"; //hosted url(endpoint)
     botOptions.userIdentity = 'meena.chitrala@genpact.com';// Provide users email id here
     botOptions.botInfo = { name: "Suzy*TheAIgent*", "_id": "st-fd5a0ea6-a96e-59c1-a0cb-8e01b93ccbc0" }; // bot name is case sensitive
 
